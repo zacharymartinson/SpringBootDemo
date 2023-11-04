@@ -1,0 +1,23 @@
+[
+  {
+    "firstName": "Zachary",
+    "lastName": "Martinson",
+    "age": 26,
+    "gender": "Male"
+  },
+  {
+    "firstName": "Billy",
+    "lastName": "Bob",
+    "age": 66,
+    "gender": "Male"
+  },
+  {
+    "firstName": "Copper",
+    "lastName": "Robber",
+    "age": 71
+  },
+  {
+    "firstName": "Linsey",
+    "gender": "Female"
+  }
+]
