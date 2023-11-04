@@ -11,6 +11,8 @@ import java.io.IOException;
 @SpringBootApplication
 public class DemoApplication {
 
+	//http://localhost:8081/people
+
 	public static void main(String[] args){
 		SpringApplication.run(DemoApplication.class, args);
 		JsonReader.readPeopleJson();
