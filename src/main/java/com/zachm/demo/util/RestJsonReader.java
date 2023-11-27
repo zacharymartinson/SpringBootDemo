@@ -13,15 +13,14 @@ import java.util.List;
 public class RestJsonReader {
 
     public static List<Product> products = new ArrayList<>();
-
-    //I do want to make it so it can ignore missing data, should be really easy
+    //Standard Jackson Json Reader.
     public static void readRestJSON(){
         try {
             ObjectMapper mapper = new ObjectMapper();
             JsonNode node = mapper.readTree(new URL("https://dummyjson.com/products")).get("products");
 
             node.forEach(jsonNode -> {
-                //can cut a line here with jsonNode.toString();
+                //can cut a line here with jsonNode.toString(); But readability is better with a parser.
                 JsonParser parser = jsonNode.traverse();
                 try {
                     Product product = mapper.readValue(parser, Product.class);

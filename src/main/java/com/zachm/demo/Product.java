@@ -6,14 +6,16 @@ public class Product {
     private long id;
     private String title;
     private String description;
-    private long price;
+    private int price;
     private double discountPercentage;
     private double rating;
     private long stock;
     private String brand;
     private String category;
+    private String thumbnail;
+    private List<String> images;
 
-    public Product(long id, String title, String description, long price, double discountPercentage, double rating, long stock, String brand, String category, String thumbnail, List<String> images) {
+    public Product(long id, String title, String description, int price, double discountPercentage, double rating, long stock, String brand, String category, String thumbnail, List<String> images) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -42,7 +44,7 @@ public class Product {
         return description;
     }
 
-    public long getPrice() {
+    public int getPrice() {
         return price;
     }
 
@@ -74,6 +76,47 @@ public class Product {
         return images;
     }
 
-    private String thumbnail;
-    private List<String> images;
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public void setDiscountPercentage(double discountPercentage) {
+        this.discountPercentage = discountPercentage;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
+    }
+
+    public void setStock(long stock) {
+        this.stock = stock;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
+    }
+
+    public void setImages(List<String> images) {
+        this.images = images;
+    }
 }
