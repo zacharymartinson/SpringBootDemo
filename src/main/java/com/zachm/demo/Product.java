@@ -2,7 +2,7 @@ package com.zachm.demo;
 
 import java.util.List;
 
-public class Products {
+public class Product {
     private long id;
     private String title;
     private String description;
@@ -13,7 +13,7 @@ public class Products {
     private String brand;
     private String category;
 
-    public Products(long id, String title, String description, long price, double discountPercentage, double rating, long stock, String brand, String category, String thumbnail, List<String> images) {
+    public Product(long id, String title, String description, long price, double discountPercentage, double rating, long stock, String brand, String category, String thumbnail, List<String> images) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -27,7 +27,7 @@ public class Products {
         this.images = images;
     }
 
-    public Products() {
+    public Product() {
     }
 
     public long getId() {
