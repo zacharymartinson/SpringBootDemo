@@ -92,7 +92,7 @@ public class DemoController {
                     try {
                         //I use the names to match them.
                         //!!!ITS IMPORTANT TO HAVE MATCHING NAMES OR FILTER THEM TO MATCH!!!
-                        if(field.getName() == s && s != "id") {
+                        if(field.getName() == s && field.getName() != "id") {
                             //set the new value to the original
                             field.set(original.get(), o);
                         }
