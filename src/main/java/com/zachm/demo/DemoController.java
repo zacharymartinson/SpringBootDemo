@@ -1,11 +1,8 @@
 package com.zachm.demo;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zachm.demo.util.RestJsonReader;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.*;
 
@@ -28,11 +25,13 @@ public class DemoController {
      */
     @GetMapping
     public Object getProducts(@RequestParam(value = "id", required = false) Integer id,
+                              @RequestParam(value = "apiKey") String apiKey,
                               @RequestParam(value = "brand", required = false) String brand,
-                              @RequestParam(value = "apiKey") String apiKey) {
+                              @RequestParam(value = "tag", required = false) String tag,
+                              @RequestParam(value = "sku", required = false) String sku) {
 
         //THIS IS JUST FOR DEMONSTRATION
-        if(!apiKey.equals("12345ABC")) {
+        if(isBadKey(apiKey)) {
             return "INVALID KEY";
         }
         else {
@@ -64,6 +63,35 @@ public class DemoController {
 
                 return branded;
             }
+
+            //FILTER BY TAG
+            if(tag != null) {
+                List<Product> taged = new ArrayList<>();
+
+                Products.forEach(product -> {
+                    product.getTags().forEach(productTag -> {
+                        if(productTag.equals(tag)) {
+                            taged.add(product);
+                        }
+                    });
+                });
+
+                return taged;
+            }
+
+            //FILTER BY SKU
+            if(sku != null) {
+                List<Product> skus = new ArrayList<>();
+
+                Products.forEach(product -> {
+                    if(product.getSku().equals(sku)) {
+                        skus.add(product);
+                    }
+                });
+
+                return skus;
+            }
+
             return Products;
 
         }
@@ -72,8 +100,11 @@ public class DemoController {
      * Adds a new product
      */
     @PostMapping
-    public boolean addProduct(@RequestBody Product new_product) {
+    public boolean addProduct(@RequestBody Product new_product, @RequestParam(value = "apiKey") String apiKey) {
         //TODO Make a json backup for this. Filter by Title
+        if(isBadKey(apiKey)) {
+            return false;
+        }
         if(Products.contains(new_product)) {
             return false;
         }
@@ -89,9 +120,11 @@ public class DemoController {
      * I filter through a list using the product ID, doesn't have to be ID, could be a name for example
      * I avoid using null here for scalability
      */
-    @PutMapping("/{id}")
-    public boolean updateProduct(@RequestBody Product new_product, @PathVariable Long id) {
-        //TODO UPDATE FOR KEY
+    @PutMapping
+    public boolean updateProduct(@RequestBody Product new_product, @RequestParam(value = "id") Long id, @RequestParam(value = "apiKey") String apiKey) {
+        if(isBadKey(apiKey)) {
+            return false;
+        }
         Optional<Product> original = Products.stream().filter(product -> product.getId() == id).findFirst();
         if(original.isPresent()) {
             Products.set(Products.indexOf(original.get()), new_product);
@@ -105,9 +138,11 @@ public class DemoController {
     /**
      * Removes a product from the list
      */
-    @DeleteMapping("/{id}")
-    public boolean deleteProduct(@PathVariable Long id) {
-        //TODO UPDATE FOR KEY
+    @DeleteMapping
+    public boolean deleteProduct(@RequestParam(value = "id") Long id, @RequestParam(value = "apiKey") String apiKey) {
+        if(isBadKey(apiKey)) {
+            return false;
+        }
         Optional<Product> original = Products.stream().filter(product -> product.getId() == id).findFirst();
         if(original.isPresent()) {
             Products.remove(original.get());
@@ -121,12 +156,11 @@ public class DemoController {
     /**
      * Changes a couple of things to a product
      *
-     * I use reflection here, just for show-off but in a professional setting I HIGHLY RECOMMEND ReflectionUtils.
+     * I use reflection here, ReflectionUtils does the same thing.
      */
-    @PatchMapping("/{id}")
-    public boolean partialUpdateProduct(@RequestBody Map<String, Object> map, @PathVariable Long id) {
+    @PatchMapping
+    public boolean partialUpdateProduct(@RequestBody Map<String, Object> map, @RequestParam(value = "id") Long id, @RequestParam(value = "apiKey") String apiKey) {
         Optional<Product> original = Products.stream().filter(product -> product.getId() == id).findFirst();
-        ObjectMapper mapper = new ObjectMapper();
 
         //Get the fields
         Field[] fields = Product.class.getDeclaredFields();
@@ -160,5 +194,9 @@ public class DemoController {
         else {
             return false;
         }
+    }
+
+    private boolean isBadKey(String key) {
+        return !key.equals("12345ABC");
     }
 }
