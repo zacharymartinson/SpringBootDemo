@@ -5,6 +5,7 @@ import com.zachm.demo.util.RestJsonReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.*;
 
@@ -15,7 +16,7 @@ import java.util.*;
  *
  * http://localhost:8081/products
  * The apiKey is 12345ABC
- * An example would be http://localhost:8081/products?id=1&apiKey=12345ABC\
+ * An example would be http://localhost:8081/products?id=1&apiKey=12345ABC
  */
 @RestController
 @RequestMapping("/products")
@@ -30,8 +31,7 @@ public class DemoController {
                               @RequestParam(value = "brand", required = false) String brand,
                               @RequestParam(value = "apiKey") String apiKey) {
 
-        //THIS IS FOR DEMO AND IS JUST QUICK
-        //IDEALLY YOU WOULD SEND THIS TO A DATABASE TO ADD 1 TO USAGE AND TO CHECK IF THE KEY IS IN THE DATABASE
+        //THIS IS JUST FOR DEMONSTRATION
         if(!apiKey.equals("12345ABC")) {
             return "INVALID KEY";
         }
