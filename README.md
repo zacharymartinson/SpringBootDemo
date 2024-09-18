@@ -1,5 +1,5 @@
 # SpringBootDemo
-Demo of Spring Boot. My first spring boot project.
+Demo of Spring Boot. Using Keys and HTTP links. Good for a base.
 
 Uses https://github.com/Ovi/DummyJSON for Rest API Access.
 
