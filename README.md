@@ -1,10 +1,19 @@
-# SpringBootDemo
-Demo of Spring Boot. Using Keys and HTTP links. Good for a base.
+# Spring Boot Demo
 
-Uses https://github.com/Ovi/DummyJSON for Rest API Access.
+Generic Outline for a HTTPS Demo
 
-Use http://localhost:8081/products
+## Installation Instructions
 
+Follow these steps to get the project up and running on your local machine:
 
-Postman was used for testing
-https://www.postman.com/
+### Prerequisites
+Make sure you have the following installed:
+- [Android Studio](https://developer.android.com/studio)
+
+### Cloning the Repository
+First, clone this repository to your local machine using Git:
+
+```bash
+git clone https://github.com/PhlawedZM/SpringBootDemo.git
+cd SpringBootDemo
+```
