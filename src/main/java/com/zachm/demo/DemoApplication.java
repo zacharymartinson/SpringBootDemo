@@ -10,7 +10,7 @@ public class DemoApplication {
 	//http://localhost:8081/products
 
 	public static void main(String[] args){
-		if(DemoController.Products.isEmpty()) {
+		if(DemoController.products.isEmpty()) {
 			//This is for demo purposes.
 			RestJsonReader.readRestJSON();
 		}

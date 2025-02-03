@@ -1,6 +1,10 @@
 package com.zachm.demo;
 
 import com.zachm.demo.util.RestJsonReader;
+import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.Field;
@@ -18,83 +22,40 @@ import java.util.*;
 @RestController
 @RequestMapping("/products")
 public class DemoController {
-    public static List<Product> Products = RestJsonReader.products;
+
+    public static final List<Product> products = RestJsonReader.products;
+    private final DemoService service;
+
+    public DemoController(DemoService service) {
+        this.service = service;
+    }
 
     /**
      * Gets the products, we can filter by id here.
      */
     @GetMapping
-    public Object getProducts(@RequestParam(value = "id", required = false) Integer id,
-                              @RequestParam(value = "apiKey") String apiKey,
-                              @RequestParam(value = "brand", required = false) String brand,
-                              @RequestParam(value = "tag", required = false) String tag,
-                              @RequestParam(value = "sku", required = false) String sku) {
+    public ResponseEntity<?> getProducts(@RequestParam(value = "id", required = false) Integer id,
+                                      @RequestParam(value = "apiKey") String apiKey,
+                                      @RequestParam(value = "brand", required = false) String brand,
+                                      @RequestParam(value = "tag", required = false) String tag,
+                                      @RequestParam(value = "sku", required = false) String sku) {
 
-        //THIS IS JUST FOR DEMONSTRATION
-        if(isBadKey(apiKey)) {
-            return "INVALID KEY";
+        if(!service.isValidKey(apiKey)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("INVALID KEY");
         }
-        else {
 
-            //WE CANT USE BOTH BRAND AND ID
-            if(id != null && brand != null) {
-                return "CANT USE BRAND AND ID";
-            }
-
-            //FILTER BY ID
-            if(id != null) {
-                if(id == 0) {
-                    return Products.get(id);
-                }
-                else {
-                    return Products.get(id-1);
-                }
-            }
-
-            //FILTER BY BRAND
-            if(brand != null) {
-                List<Product> branded = new ArrayList<>();
-
-                Products.forEach(product -> {
-                    if(product.getBrand().equals(brand)) {
-                        branded.add(product);
-                    }
-                });
-
-                return branded;
-            }
-
-            //FILTER BY TAG
-            if(tag != null) {
-                List<Product> taged = new ArrayList<>();
-
-                Products.forEach(product -> {
-                    product.getTags().forEach(productTag -> {
-                        if(productTag.equals(tag)) {
-                            taged.add(product);
-                        }
-                    });
-                });
-
-                return taged;
-            }
-
-            //FILTER BY SKU
-            if(sku != null) {
-                List<Product> skus = new ArrayList<>();
-
-                Products.forEach(product -> {
-                    if(product.getSku().equals(sku)) {
-                        skus.add(product);
-                    }
-                });
-
-                return skus;
-            }
-
-            return Products;
-
+        if(!service.isValidCheck(id, brand)) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("INVALID REQUEST OR SYNTAX");
         }
+
+
+        try {
+            List<Product> filtered = service.getProducts(id,brand,tag,sku);
+            return ResponseEntity.ok(filtered);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("ERROR" + e.getMessage());
+        }
+
     }
     /**
      * Adds a new product
@@ -105,13 +66,13 @@ public class DemoController {
         if(isBadKey(apiKey)) {
             return false;
         }
-        if(Products.contains(new_product)) {
+        if(products.contains(new_product)) {
             return false;
         }
         else {
             //Keeping ID in check
-            new_product.setId(Products.size()+1);
-            Products.add(new_product);
+            new_product.setId(products.size()+1);
+            products.add(new_product);
             return true;
         }
     }
@@ -125,9 +86,9 @@ public class DemoController {
         if(isBadKey(apiKey)) {
             return false;
         }
-        Optional<Product> original = Products.stream().filter(product -> product.getId() == id).findFirst();
+        Optional<Product> original = products.stream().filter(product -> product.getId() == id).findFirst();
         if(original.isPresent()) {
-            Products.set(Products.indexOf(original.get()), new_product);
+            products.set(products.indexOf(original.get()), new_product);
             return true;
         }
         else {
@@ -143,9 +104,9 @@ public class DemoController {
         if(isBadKey(apiKey)) {
             return false;
         }
-        Optional<Product> original = Products.stream().filter(product -> product.getId() == id).findFirst();
+        Optional<Product> original = products.stream().filter(product -> product.getId() == id).findFirst();
         if(original.isPresent()) {
-            Products.remove(original.get());
+            products.remove(original.get());
             return true;
         }
         else {
@@ -160,7 +121,7 @@ public class DemoController {
      */
     @PatchMapping
     public boolean partialUpdateProduct(@RequestBody Map<String, Object> map, @RequestParam(value = "id") Long id, @RequestParam(value = "apiKey") String apiKey) {
-        Optional<Product> original = Products.stream().filter(product -> product.getId() == id).findFirst();
+        Optional<Product> original = products.stream().filter(product -> product.getId() == id).findFirst();
 
         //Get the fields
         Field[] fields = Product.class.getDeclaredFields();
