@@ -1,97 +1,165 @@
 package com.zachm.demo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
+
+/**
+ * Auto-Generated Jackson File
+ */
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Product {
-    private long id;
+    private int id;
     private String title;
     private String description;
-    private int price;
+    private double price;
     private double discountPercentage;
     private double rating;
-    private long stock;
+    private int stock;
     private String brand;
     private String category;
     private String thumbnail;
     private List<String> images;
     private List<String> tags;
     private String sku;
-    private int weight;
-    private Map<String, Double> dimensions;
-    private List<Object> reviews;
+    private double weight;
+    private Dimensions dimensions;
+    private List<Review> reviews;
     private String warrantyInformation;
     private String shippingInformation;
     private String availabilityStatus;
     private String returnPolicy;
     private int minimumOrderQuantity;
-    private Map<String, String> meta;
+    private Meta meta;
 
+    public int getId() {
+        return id;
+    }
 
-    public Product(long id, String title, String description, int price, double discountPercentage, double rating, long stock, String brand, String category, String thumbnail, List<String> images, List<String> tags,
-                   String sku, int weight, Map<String, Double> dimensions, String warrantyInformation, String availabilityStatus, String returnPolicy, int minimumOrderQuantity, Map<String, String> meta) {
+    public void setId(int id) {
         this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
         this.description = description;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
         this.price = price;
+    }
+
+    public double getDiscountPercentage() {
+        return discountPercentage;
+    }
+
+    public void setDiscountPercentage(double discountPercentage) {
         this.discountPercentage = discountPercentage;
+    }
+
+    public double getRating() {
+        return rating;
+    }
+
+    public void setRating(double rating) {
         this.rating = rating;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
         this.stock = stock;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
         this.brand = brand;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
         this.category = category;
+    }
+
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(String thumbnail) {
         this.thumbnail = thumbnail;
+    }
+
+    public List<String> getImages() {
+        return images;
+    }
+
+    public void setImages(List<String> images) {
         this.images = images;
+    }
+
+    public List<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<String> tags) {
         this.tags = tags;
+    }
+
+    public String getSku() {
+        return sku;
+    }
+
+    public void setSku(String sku) {
         this.sku = sku;
-        this.weight = weight;
-        this.dimensions = dimensions;
-        this.warrantyInformation = warrantyInformation;
-        this.availabilityStatus = availabilityStatus;
-        this.returnPolicy = returnPolicy;
-        this.minimumOrderQuantity = minimumOrderQuantity;
-        this.meta = meta;
     }
 
-    public Product() {
-    }
-
-    public Map<String, String> getMeta() {
-        return meta;
-    }
-
-    public void setMeta(Map<String, String> meta) {
-        this.meta = meta;
-    }
-
-    public int getMinimumOrderQuantity() {
-        return minimumOrderQuantity;
-    }
-
-    public void setMinimumOrderQuantity(int minimumOrderQuantity) {
-        this.minimumOrderQuantity = minimumOrderQuantity;
-    }
-
-    public int getWeight() {
+    public double getWeight() {
         return weight;
     }
 
-    public void setWeight(int weight) {
+    public void setWeight(double weight) {
         this.weight = weight;
     }
 
-    public Map<String, Double> getDimensions() {
+    public Dimensions getDimensions() {
         return dimensions;
     }
 
-    public void setDimensions(Map<String, Double> dimensions) {
+    public void setDimensions(Dimensions dimensions) {
         this.dimensions = dimensions;
     }
 
-    public List<Object> getReviews() {
+    public List<Review> getReviews() {
         return reviews;
     }
 
-    public void setReviews(List<Object> reviews) {
+    public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
     }
 
@@ -127,107 +195,144 @@ public class Product {
         this.returnPolicy = returnPolicy;
     }
 
-    public List<String> getTags() {
-        return tags;
+    public int getMinimumOrderQuantity() {
+        return minimumOrderQuantity;
     }
 
-    public void setTags(List<String> tags) {
-        this.tags = tags;
+    public void setMinimumOrderQuantity(int minimumOrderQuantity) {
+        this.minimumOrderQuantity = minimumOrderQuantity;
     }
 
-    public String getSku() {
-        return sku;
+    public Meta getMeta() {
+        return meta;
     }
 
-    public void setSku(String sku) {
-        this.sku = sku;
+    public void setMeta(Meta meta) {
+        this.meta = meta;
     }
 
-    public long getId() {
-        return id;
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public static class Dimensions {
+        private double width;
+        private double height;
+        private double depth;
+
+        public double getWidth() {
+            return width;
+        }
+
+        public void setWidth(double width) {
+            this.width = width;
+        }
+
+        public double getHeight() {
+            return height;
+        }
+
+        public void setHeight(double height) {
+            this.height = height;
+        }
+
+        public double getDepth() {
+            return depth;
+        }
+
+        public void setDepth(double depth) {
+            this.depth = depth;
+        }
     }
 
-    public String getTitle() {
-        return title;
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public static class Review {
+        private int rating;
+        private String comment;
+
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+        private Date date;
+        private String reviewerName;
+        private String reviewerEmail;
+
+        public int getRating() {
+            return rating;
+        }
+
+        public void setRating(int rating) {
+            this.rating = rating;
+        }
+
+        public String getComment() {
+            return comment;
+        }
+
+        public void setComment(String comment) {
+            this.comment = comment;
+        }
+
+        public Date getDate() {
+            return date;
+        }
+
+        public void setDate(Date date) {
+            this.date = date;
+        }
+
+        public String getReviewerName() {
+            return reviewerName;
+        }
+
+        public void setReviewerName(String reviewerName) {
+            this.reviewerName = reviewerName;
+        }
+
+        public String getReviewerEmail() {
+            return reviewerEmail;
+        }
+
+        public void setReviewerEmail(String reviewerEmail) {
+            this.reviewerEmail = reviewerEmail;
+        }
     }
 
-    public String getDescription() {
-        return description;
-    }
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public static class Meta {
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+        private Date createdAt;
 
-    public int getPrice() {
-        return price;
-    }
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+        private Date updatedAt;
+        private String barcode;
+        private String qrCode;
 
-    public double getDiscountPercentage() {
-        return discountPercentage;
-    }
+        public Date getCreatedAt() {
+            return createdAt;
+        }
 
-    public double getRating() {
-        return rating;
-    }
+        public void setCreatedAt(Date createdAt) {
+            this.createdAt = createdAt;
+        }
 
-    public long getStock() {
-        return stock;
-    }
+        public Date getUpdatedAt() {
+            return updatedAt;
+        }
 
-    public String getBrand() {
-        return brand;
-    }
+        public void setUpdatedAt(Date updatedAt) {
+            this.updatedAt = updatedAt;
+        }
 
-    public String getCategory() {
-        return category;
-    }
+        public String getBarcode() {
+            return barcode;
+        }
 
-    public String getThumbnail() {
-        return thumbnail;
-    }
+        public void setBarcode(String barcode) {
+            this.barcode = barcode;
+        }
 
-    public List<String> getImages() {
-        return images;
-    }
+        public String getQrCode() {
+            return qrCode;
+        }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
-    public void setDiscountPercentage(double discountPercentage) {
-        this.discountPercentage = discountPercentage;
-    }
-
-    public void setRating(double rating) {
-        this.rating = rating;
-    }
-
-    public void setStock(long stock) {
-        this.stock = stock;
-    }
-
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public void setThumbnail(String thumbnail) {
-        this.thumbnail = thumbnail;
-    }
-
-    public void setImages(List<String> images) {
-        this.images = images;
+        public void setQrCode(String qrCode) {
+            this.qrCode = qrCode;
+        }
     }
 }
