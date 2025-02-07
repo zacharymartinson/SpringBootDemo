@@ -60,5 +60,4 @@ public class DemoService {
                 .collect(Collectors.toList());
     }
 
-
 }
