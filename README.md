@@ -1,6 +1,6 @@
 # Spring Boot Demo
 
-Generic Outline for a HTTPS Demo
+Example Spring Boot project to showcase basic HTTP requests with RESTful APIs.
 
 ## Installation Instructions
 
