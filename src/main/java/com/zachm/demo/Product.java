@@ -10,6 +10,8 @@ import java.util.List;
  * Auto-Generated Jackson File
  */
 
+
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Product {
     private int id;
@@ -34,6 +36,34 @@ public class Product {
     private String returnPolicy;
     private int minimumOrderQuantity;
     private Meta meta;
+
+    /**
+     * Intended to use for generating new products, usually in Unit Tests.
+     */
+    public Product(int id, String title, String description, double price, double discountPercentage, double rating, int stock, String brand, String category, String thumbnail, List<String> images, List<String> tags, String sku, double weight, Dimensions dimensions, List<Review> reviews, String warrantyInformation, String shippingInformation, String availabilityStatus, String returnPolicy, int minimumOrderQuantity, Meta meta) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.price = price;
+        this.discountPercentage = discountPercentage;
+        this.rating = rating;
+        this.stock = stock;
+        this.brand = brand;
+        this.category = category;
+        this.thumbnail = thumbnail;
+        this.images = images;
+        this.tags = tags;
+        this.sku = sku;
+        this.weight = weight;
+        this.dimensions = dimensions;
+        this.reviews = reviews;
+        this.warrantyInformation = warrantyInformation;
+        this.shippingInformation = shippingInformation;
+        this.availabilityStatus = availabilityStatus;
+        this.returnPolicy = returnPolicy;
+        this.minimumOrderQuantity = minimumOrderQuantity;
+        this.meta = meta;
+    }
 
     public int getId() {
         return id;
@@ -217,6 +247,12 @@ public class Product {
         private double height;
         private double depth;
 
+        public Dimensions(double width, double height, double depth) {
+            this.width = width;
+            this.height = height;
+            this.depth = depth;
+        }
+
         public double getWidth() {
             return width;
         }
@@ -251,6 +287,14 @@ public class Product {
         private Date date;
         private String reviewerName;
         private String reviewerEmail;
+
+        public Review(int rating, String comment, Date date, String reviewerName, String reviewerEmail) {
+            this.rating = rating;
+            this.comment = comment;
+            this.date = date;
+            this.reviewerName = reviewerName;
+            this.reviewerEmail = reviewerEmail;
+        }
 
         public int getRating() {
             return rating;
