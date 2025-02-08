@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 @Service
 public class DemoService {
 
-    private final List<Product> products;
+    public List<Product> products;
 
     public DemoService() {
         this.products = RestJsonReader.products;
@@ -23,6 +23,7 @@ public class DemoService {
     }
 
     public boolean isValidCheck(Integer id, String brand) {
+        //TODO change so ID cant be searched with other things besides key
         return id == null || brand == null;
     }
 
@@ -54,9 +55,8 @@ public class DemoService {
     }
 
     private List<Product> caseSKU(String sku) {
-        //Edge case for non digit scenarios.
         return products.stream()
-                .filter(product -> product.getSku().chars().allMatch(Character::isDigit) && product.getSku().equals(sku))
+                .filter(product -> product.getSku().equals(sku))
                 .collect(Collectors.toList());
     }
 
